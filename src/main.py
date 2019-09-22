@@ -21,7 +21,7 @@ print(data_frame[data_frame.sentiment == 4].head(10))
 data_frame['pre_clean_len'] = [len(t) for t in data_frame.text]
 
 #%%
-from utils.data_dict import data_dict
+from .utils.data_dict import data_dict
 from pprint import pprint
 pprint(data_dict(data_frame))
 
@@ -64,7 +64,7 @@ print(data_frame.text[175])
 print(re.sub('[^a-zA-Z]', ' ', data_frame.text[175]))
 
 #%%
-from utils.tweet_cleaner import tweet_cleaner
+from .utils.tweet_cleaner import tweet_cleaner
 
 testing = data_frame.text[:100]
 test_results = []
