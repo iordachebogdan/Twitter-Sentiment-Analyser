@@ -4,7 +4,7 @@ import pandas as pd
 #%%
 cols = ['sentiment', 'id', 'date', 'query_string', 'user', 'text']
 data_frame = pd.read_csv(
-    './training data/training.1600000.processed.noemoticon.csv',
+    '../training data/training.1600000.processed.noemoticon.csv',
     header=None,
     names=cols,
     encoding='latin-1'
@@ -37,7 +37,36 @@ clean_df['target'] = data_frame.sentiment
 print(clean_df.head())
 
 #%%
-clean_csv = './training data/clean_tweets.csv'
+clean_csv = '../training data/clean_tweets.csv'
 clean_df.to_csv(clean_csv, encoding='utf-8')
-dummy_csv = pd.read_csv(clean_csv, index_col=0)
-print(dummy_csv.head())
+
+#%%
+my_df = pd.read_csv(clean_csv,index_col=0)
+my_df.head()
+
+#%%
+my_df.info()
+
+#%%
+df = pd.read_csv(
+    '../training data/training.1600000.processed.noemoticon.csv',
+    header=None,
+    names=cols,
+    encoding='latin-1'
+)
+
+#%%
+import numpy as np
+np.sum(my_df.isnull().any(axis=1))
+
+#%%
+df.iloc[my_df[my_df.isnull().any(axis=1)].index, :].head().text
+
+#%%
+# Drop null columns
+my_df.dropna(inplace=True)
+my_df.reset_index(inplace=True, drop=True)
+my_df.info()
+
+#%%
+my_df.to_csv(clean_csv, encoding='utf-8')
