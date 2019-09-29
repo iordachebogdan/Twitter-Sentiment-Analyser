@@ -70,3 +70,8 @@ my_df.info()
 
 #%%
 my_df.to_csv(clean_csv, encoding='utf-8')
+
+#%%
+my_df = pd.read_csv(clean_csv,index_col=0)
+my_df.target = my_df.target.map(lambda x: x if x == 0 else 1)
+my_df.to_csv(clean_csv, encoding='utf-8')
